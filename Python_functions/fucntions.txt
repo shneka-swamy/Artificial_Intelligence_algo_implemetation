@@ -57,6 +57,15 @@ deq.clear()            clears the list
 de.count('a')          counts the number of a's present in the list
 
 
+Chain Maps:
+
+It is the collection of dictionary. Any change in the previous dictionary will make changes in the chainmap. A new child can be added using new_child() function.
+
+Named Tuple: (can be used for data base type operations.)
+
+These are the named tuples and can be used to create a database type lists. This can be converted into a dictionary and changes can also be made to it. 
+
+
 
  
 
