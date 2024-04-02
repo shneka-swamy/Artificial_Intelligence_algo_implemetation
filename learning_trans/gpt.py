@@ -2,6 +2,9 @@ import torch
 from BigramLanguageModel import BigramLanguageModel
 from tqdm import tqdm
 
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter('runs/')
+
 # Read the file -- entire dataset
 def read_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -63,10 +66,11 @@ def get_optimizer(m):
 
 def main():
     block_size = 256
-    max_iter = 5000
+    max_iter = 1000
     eval_iters = 200
     eval_interval = 500
-    n_heads = 6
+    #n_heads = 6
+    n_heads = 1
     n_layers = 6
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -130,6 +134,11 @@ def main():
 
         optimizer.zero_grad()
         loss.backward()
+
+        for name, params in m.named_parameters():
+            if params.grad is not None:
+                writer.add_histogram(name, params.grad, iter)
+    
         optimizer.step()
 
     print(loss.item())
